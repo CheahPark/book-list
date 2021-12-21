@@ -62,8 +62,18 @@ class UI {
 // ----- local storage ----- //
 class Storage {
   // 1. store a book
-  static storeBook() {
-    localStorage.setItem('books');
+  static storeBook(book) {
+    const { title, author, isbn } = book;
+    const localStorageBooks = localStorage.getItem('books');
+    if (!localStorageBooks) {
+      let books = [];
+      books.push({ title, author, isbn });
+      localStorage.setItem('books', JSON.stringify(books));
+    } else {
+      let storedBooks = JSON.parse(localStorageBooks);
+      storedBooks.push({ title, author, isbn });
+      localStorage.setItem('books', JSON.stringify(storedBooks));
+    }
   }
   // 2. remove a book
   static removeBook() {}
@@ -96,6 +106,7 @@ bookForm.addEventListener('submit', (e) => {
 
   UI.displayBook(book);
   UI.showAlert(book[0]);
+  Storage.storeBook(book[0]);
 });
 
 //Remove
