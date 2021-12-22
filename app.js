@@ -57,6 +57,14 @@ class UI {
       document.querySelector('.alert').remove();
     }, 2000);
   }
+
+  static clearForm() {
+    setTimeout(() => {
+      document.getElementById('title').value = '';
+      document.getElementById('author').value = '';
+      document.getElementById('isbn').value = '';
+    }, 2000);
+  }
 }
 
 // ----- local storage ----- //
@@ -96,14 +104,15 @@ document.addEventListener('DOMContentLoaded', () => {
 //Add a book
 bookForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  const title = document.getElementById('title').value;
-  const author = document.getElementById('author').value;
-  const isbn = document.getElementById('isbn').value;
-  const book = [{ title, author, isbn }];
+  let title = document.getElementById('title').value;
+  let author = document.getElementById('author').value;
+  let isbn = document.getElementById('isbn').value;
+  let book = [{ title, author, isbn }];
 
   UI.displayBook(book);
   UI.showAlert(book[0]);
   Storage.storeBook(book[0]);
+  UI.clearForm();
 });
 
 //Remove a book
