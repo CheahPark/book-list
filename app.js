@@ -76,7 +76,16 @@ class Storage {
     }
   }
   // 2. remove a book
-  static removeBook() {}
+  static removeBook(e) {
+    const title = e.target.parentElement.parentElement.firstChild.innerHTML;
+    const bookLists = JSON.parse(localStorage.getItem('books'));
+
+    const newBookLists = bookLists.filter((book) => {
+      return book.title !== title;
+    });
+
+    localStorage.setItem('books', JSON.stringify(newBookLists));
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -112,4 +121,5 @@ bookForm.addEventListener('submit', (e) => {
 //Remove
 bookList.addEventListener('click', (e) => {
   UI.deleteBook(e);
+  Storage.removeBook(e);
 });
