@@ -89,19 +89,7 @@ class Storage {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const books = [
-    {
-      title: 'Harry Potter',
-      author: 'J. K. Rolling',
-      isbn: 321341,
-    },
-    {
-      title: 'Christmas Jack',
-      author: 'John Doe',
-      isbn: 1234,
-    },
-  ];
-
+  const books = JSON.parse(localStorage.getItem('books'));
   UI.displayBook(books);
 });
 
@@ -118,7 +106,7 @@ bookForm.addEventListener('submit', (e) => {
   Storage.storeBook(book[0]);
 });
 
-//Remove
+//Remove a book
 bookList.addEventListener('click', (e) => {
   UI.deleteBook(e);
   Storage.removeBook(e);
